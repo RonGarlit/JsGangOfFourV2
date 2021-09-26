@@ -29,12 +29,13 @@ app.listen(port, function(err) {
     if (err) {
       console.log(err);
     } else {
+      // Display that we are running in terminal
       console.log('Node server running web application @ http://localhost:' + port);
-      // uncomment below to have it open a browser
+      // Uncomment one of the following lines below to have it open a browser for testing automatically
         // open('http://localhost:' + port);
-        open('http://localhost:' + port);      
-      //open('http://localhost:' + port, {app: {name: 'firefox'}});
-      // open('http://localhost:' + port, {app: {name: 'chrome'}});
+        open('http://localhost:' + port);    // Open defualt browser  
+      //open('http://localhost:' + port, {app: {name: 'firefox'}});  // Open in Firefox browser
+      // open('http://localhost:' + port, {app: {name: 'chrome'}});  // Open in Chrome browser
     }
   });
   
