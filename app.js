@@ -1,12 +1,14 @@
-const express = require('express');
-const chalk = require('chalk');
-const debug = require('debug')('app');
-const morgan = require('morgan');
-const path = require('path');
 
-const port = process.env.PORT || 3000;
-const app = express();  // setup express as app
-const open = require('open');
+// Set up constants for required packages
+const express = require('express'); // Fast, unopinionated, minimalist web framework for node.
+const chalk = require('chalk');  // Terminal string styling done right
+const debug = require('debug')('app'); // A tiny JavaScript debugging utility
+const morgan = require('morgan'); // HTTP request logger middleware for node.js
+const path = require('path'); // Node.JS path module
+
+const port = process.env.PORT || 3000;  // Set the PORT for the application here
+const app = express();  // Setup express as app for use here.
+const open = require('open');  // Open stuff like URLs, files, executables. Cross-platform.
 
 //app.use(morgan('combined'));  // setup morgan for http request reporting to terminal
 app.use(morgan('tiny'));  // setup morgan for http request reporting to terminal
