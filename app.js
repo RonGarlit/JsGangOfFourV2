@@ -16,7 +16,7 @@ app.use(morgan('tiny'));  // setup morgan for http request reporting to terminal
 app.use(express.static(path.join(__dirname, '/public/')));  // setup static files location served up by express
 
 // Setup EJS templeting view engine and view file location
-app.set('views', './public/views');
+app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use('/node_modules',  express.static(__dirname + '/node_modules'));
