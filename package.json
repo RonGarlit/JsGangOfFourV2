@@ -4,6 +4,8 @@
   "description": "Uplift to Node 16.9 from older version of my JsGangOfFour written about the time of Node 5.",
   "main": "index.js",
   "scripts": {
+    "start":"set DEBUG=app & nodemon app.js",
+    "debug":"set DEBUG=* & nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -33,7 +33,7 @@ app.listen(port, function(err) {
       console.log('Node server running web application @ http://localhost:' + port);
       // Uncomment one of the following lines below to have it open a browser for testing automatically
         // open('http://localhost:' + port);
-        open('http://localhost:' + port);    // Open defualt browser  
+        //open('http://localhost:' + port);    // Open defualt browser  
       //open('http://localhost:' + port, {app: {name: 'firefox'}});  // Open in Firefox browser
       // open('http://localhost:' + port, {app: {name: 'chrome'}});  // Open in Chrome browser
     }
