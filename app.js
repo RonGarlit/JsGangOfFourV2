@@ -13,14 +13,19 @@ const open = require('open');  // Open stuff like URLs, files, executables. Cros
 //app.use(morgan('combined'));  // setup morgan for http request reporting to terminal
 app.use(morgan('tiny'));  // setup morgan for http request reporting to terminal
 
-app.use(express.static(path.join(__dirname, '/public/')));  // setup static files location served up by express
+
+// Setup static files location served up by express
+//app.use(express.static(path.join(__dirname, '/public/'))); 
+app.use(express.static('public')) 
+app.use('/css', express.static(__dirname + 'public/css'))
+app.use('/scripts', express.static(__dirname + 'public/scripts'))
+app.use('/images', express.static(__dirname + 'public/images'))
+app.use('/node_modules',  express.static(__dirname + '/node_modules'));
 
 // Setup EJS templeting view engine and view file location
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.use('/node_modules',  express.static(__dirname + '/node_modules'));
-app.use(express.static('public'));
 
 //======================================================
 // Open the Server
