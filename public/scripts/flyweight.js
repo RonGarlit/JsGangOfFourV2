@@ -9,6 +9,8 @@ An example of the Flyweight Pattern is within the JavaScript engine itself which
 
 Other examples include characters and line-styles in a word processor, or 'digit receivers' in a public switched telephone network application. You will find flyweights mostly in utility type applications such as word processors, graphics programs, and network apps; they are less often used in data-driven business type applications.
 
+
+Work from Office
 */
 
 
