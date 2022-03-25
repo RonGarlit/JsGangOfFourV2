@@ -9,10 +9,24 @@ An example of the Flyweight Pattern is within the JavaScript engine itself which
 
 Other examples include characters and line-styles in a word processor, or 'digit receivers' in a public switched telephone network application. You will find flyweights mostly in utility type applications such as word processors, graphics programs, and network apps; they are less often used in data-driven business type applications.
 
-
-Work from Office
 */
 
+
+//==============================================
+// flyweight.js
+//==============================================
+// log helper
+// Used to add() to var log
+// then display in alert box
+// via show() method
+//==============================================
+var log = (function () {
+    var log = "";
+    return {
+        add: function (msg) { log += msg + "\n"; },
+        show: function () { alert(log); log = ""; }
+    }
+})();
 
 function Flyweight (make, model, processor) {
     this.make = make;
@@ -72,17 +86,8 @@ var Computer = function (make, model, processor, memory, tag) {
     // ...
 }
 
-// log helper
-var log = (function () {
-    var log = "";
-    return {
-        add: function (msg) { log += msg + "\n"; },
-        show: function () { alert(log); log = ""; }
-    }
-})();
 
-
-function run() {
+function run_flyweight() {
 
     var computers = new ComputerCollection();
     
@@ -93,7 +98,7 @@ function run() {
     computers.add("Dell", "Studio XPS", "Intel", "2G", "0J88A");
     computers.add("HP", "Envy", "Intel", "4G", "CNU883701");
     computers.add("HP", "Envy", "Intel", "2G", "TXU003283");
-
+    
     log.add("Computers: " + computers.getCount());
     log.add("Flyweights: " + FlyWeightFactory.getCount());
 
