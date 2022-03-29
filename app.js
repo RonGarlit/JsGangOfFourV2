@@ -6,7 +6,7 @@ const debug = require('debug')('app'); // A tiny JavaScript debugging utility
 const morgan = require('morgan'); // HTTP request logger middleware for node.js
 const path = require('path'); // Node.JS path module
 
-const port = process.env.PORT || 3000;  // Set the PORT for the application here
+const port = process.env.PORT || 4000;  // Set the PORT for the application here
 const app = express();  // Setup express as app for use here.
 const open = require('open');  // Open stuff like URLs, files, executables. Cross-platform.
 
