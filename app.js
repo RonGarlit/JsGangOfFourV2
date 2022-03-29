@@ -50,7 +50,7 @@ app.listen(port, function (err) {
     // open('http://localhost:' + port);
     // open('http://localhost:' + port);    // Open defualt browser  
     //open('http://localhost:' + port, {app: {name: 'firefox'}});  // Open in Firefox browser
-    //open('http://localhost:' + port, {app: {name: 'chrome'}});  // Open in Chrome browser
+    open('http://localhost:' + port, {app: {name: 'chrome'}});  // Open in Chrome browser
   }
 });
   //======================================================
