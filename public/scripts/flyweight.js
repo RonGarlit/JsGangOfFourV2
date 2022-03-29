@@ -32,7 +32,7 @@ function Flyweight (make, model, processor) {
     this.make = make;
     this.model = model;
     this.processor = processor;
-};
+}
 
 var FlyWeightFactory = (function () {
     var flyweights = {};
