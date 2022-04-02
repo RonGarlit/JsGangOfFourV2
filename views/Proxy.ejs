@@ -1,93 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/proxy.js"></script>
+    <script src="scripts/proxy.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">Proxy</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Provide a surrogate or placeholder for another object to control access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">Proxy</h4>
-                    <p>
-                        <img src="images/javascript-proxy.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_proxy();return false;">Execute Proxy Example</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="ReplaceMe">Proxy</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Provide a surrogate or placeholder for another object to control
+            access to it."
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
+      </div>
 
-</body>
+      <p>
+        The Proxy pattern provides a surrogate or placeholder object for another
+        object and controls access to this other object
+      </p>
 
+      <p>
+        In object-oriented programming, objects do the work they advertise
+        through their interface (properties and methods). Clients of these
+        objects expect this work to be done quickly and efficiently. However,
+        there are situations where an object is severely constrained and cannot
+        live up to its responsibility.
+      </p>
+
+      <p>
+        Typically this occurs when there is a dependency on a remote resource
+        (resulting in network latency) or when an object takes a long time to
+        load.
+      </p>
+
+      <p>
+        In situations like these you apply the Proxy pattern and create a proxy
+        object that ‘stands in’ for the original object. The Proxy forwards the
+        request to a target object. The interface of the Proxy object is the
+        same as the original object and clients may not even be aware they are
+        dealing with a proxy rather than the real object
+      </p>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">Proxy</h4>
+          <p>
+            <img
+              src="images/javascript-proxy.jpg"
+              alt="Abstract Factory Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // proxy.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            // Simulated Google Maps Geocoding Service
+            function GeoCoder() {
+                this.getLatLng = function (address) {
+            
+                    if (address === "Amsterdam") {
+                        return "52.3700° N, 4.8900° E";
+                    } else if (address === "London") {
+                        return "51.5171° N, 0.1062° W";
+                    } else if (address === "Paris") {
+                        return "48.8742° N, 2.3470° E";
+                    } else if (address === "Berlin") {
+                        return "52.5233° N, 13.4127° E";
+                    } else {
+                        return "";
+                    }
+                };
+            }
+            
+            // Our Application's Proxy for the Simulated Google Maps Geocoding Service
+            function GeoProxy() {
+                var geocoder = new GeoCoder();
+                var geocache = {};
+            
+                return {
+                    getLatLng: function (address) {
+                        if (!geocache[address]) {
+                            geocache[address] = geocoder.getLatLng(address);
+                        }
+            
+                        log.add(address + ": " + geocache[address]);
+                        return geocache[address];
+                    },
+                    getCount: function () {
+                        var count = 0;
+                        for (var code in geocache) { count++; }
+                        return count;
+                    }
+                };
+            };
+            
+            //=============================================
+            // run_proxy()
+            //=============================================
+            function run_proxy() {
+            
+                var geo = new GeoProxy();
+            
+                // geolocation requests
+                geo.getLatLng("Paris");
+                geo.getLatLng("London");
+                geo.getLatLng("London");
+                geo.getLatLng("London");
+                geo.getLatLng("London");
+                geo.getLatLng("Amsterdam");
+                geo.getLatLng("Amsterdam");
+                geo.getLatLng("Amsterdam");
+                geo.getLatLng("Amsterdam");
+                geo.getLatLng("London");
+                geo.getLatLng("London");
+            
+                log.add("\nCache size: " + geo.getCount());
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_proxy();return false;"
+        >
+          Execute Proxy Example
+        </button>
+      </div>
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+      
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+                        //REPLACE THIS WITH CODE FROM JS FILE
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedAbstractFactory();return false;"
+        >
+          Execute run_OptimizedAbstractFactory()
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
