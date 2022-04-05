@@ -1,93 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/abstractfactory.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">JavaScript Code</h4>
-                    <p>
-                        <img src="images/javascript-chain-of-responsibility.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="ReplaceMe">Chain of Responsibility</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Avoid coupling the sender of a request to its receiver by giving
+            more than one object a chance to handle the request. Chain the
+            receiving objects and pass the request along the chain until an
+            object handles it."
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
+      </div>
 
-</body>
+      <p>ReplaceMe</p>
 
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">Chain of Responsibility</h4>
+          <p>
+            <img
+              src="images/javascript-chain-of-responsibility.jpg"
+              alt="Chain of Responsibility Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+      
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+                        //REPLACE THIS WITH CODE FROM JS FILE
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_AbstractFactory();return false;"
+        >
+          Execute run_AbstractFactory()
+        </button>
+      </div>
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+      
+      <p>ReplaceMe</p>
+
+      <p>ReplaceMe</p>
+      
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+                        //REPLACE THIS WITH CODE FROM JS FILE
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedAbstractFactory();return false;"
+        >
+          Execute run_OptimizedAbstractFactory()
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
