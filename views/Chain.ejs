@@ -10,7 +10,7 @@
     <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
     <%- include('partials/PrettyPrint') %>
 
-    <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/chainresponsibility.js"></script>
   </head>
 
   <body>
@@ -32,11 +32,24 @@
         </div>
       </div>
 
-      <p>ReplaceMe</p>
+      <p>
+        The Chain of Responsibility pattern provides a chain of loosely coupled
+        objects one of which can satisfy a request. This pattern is essentially
+        a linear search for an object that can handle a particular request.
+      </p>
 
-      <p>ReplaceMe</p>
+      <p>
+        An example of a chain-of-responsibility is event-bubbling in which an
+        event propagates through a series of nested controls one of which may
+        choose to handle the event.
+      </p>
 
-      <p>ReplaceMe</p>
+      <p>
+        The Chain of Responsiblity patterns is related to the Chaining Pattern
+        which is frequently used in JavaScript (jQuery makes extensive use of
+        this pattern). To learn more about the Chaining patterns view the Modern
+        Patterns section.
+      </p>
 
       <p>ReplaceMe</p>
 
@@ -52,14 +65,30 @@
           </p>
         </div>
       </div>
+      <p class="text-warning">
+        Note: Much of the materials on this page are borrowed from a special
+        architecture course by Jack Poorte that I ported with some modification.
+      </p>
+      <p>
+        This example differs slightly from the classic Chain of Responsibility
+        pattern in that not one, but all handlers participate in handling the
+        request.
+      </p>
 
-      <p>ReplaceMe</p>
+      <p>
+        The code demonstrates an elegant solution to a money dispensing machine
+        problem. Say, a customer requires $247 from an ATM machine. What is the
+        combination of bank notes ($100, $50, $20, $10, $5, $1) that satisfies
+        that request?
+      </p>
 
-      <p>ReplaceMe</p>
-      
-      <p>ReplaceMe</p>
-
-      <p>ReplaceMe</p>
+      <p>
+        A Request is created with the amount requested. Next, a series of get
+        calls are chained together, each one handling a particular denomination.
+        Each handler determines the number of bank notes dispensed and
+        substracts this amount from the remaining amount. The request object is
+        passed through the chain by returning this in the get method.
+      </p>
 
       <p></p>
       <br />
@@ -72,7 +101,54 @@
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
   
-                        //REPLACE THIS WITH CODE FROM JS FILE
+            //==============================================
+            // chainresponsibility.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            // Request is created 
+            var Request = function (amount) {
+                this.amount = amount;
+            
+                log.add("Requested: $" + amount + "\n");
+            }
+            // The get method is added to the pototype
+            Request.prototype = {
+                get: function (bill) {
+                    var count = Math.floor(this.amount / bill);
+                    this.amount -= count * bill;
+            
+                    log.add("Dispense " + count + " $" + bill + " bills");
+            
+                    return this;
+                }
+            }
+            
+            //=============================================
+            // run_chain()
+            //=============================================
+            function run_chain() {
+            
+                // the Request is created with the amount requested
+                var request = new Request(378);
+                // Next, a series of get calls are chained together, each one 
+                // handling a particular denomination. The request object is 
+                // passed through the chain by returning this in the get method.
+                request.get(100).get(50).get(20).get(10).get(5).get(1);
+            
+                log.show();
+            }
       
                     </pre
           >
@@ -80,19 +156,24 @@
         <button
           type="button"
           class="btn btn-success"
-          onclick="run_AbstractFactory();return false;"
+          onclick="run_Chain();return false;"
         >
-          Execute run_AbstractFactory()
+          Execute Chain Of Responsibility
         </button>
       </div>
-      <p>ReplaceMe</p>
+      <p>
+        The Namespace pattern is applied to keep the code out of the global
+        namespace. Our namespace is named Patterns.Classic. A Revealing Module
+        named Chain returns (i.e. reveals) only a single item: the Request
+        constructor function and its prototype by association.
+      </p>
 
-      <p>ReplaceMe</p>
-      
-      <p>ReplaceMe</p>
+      <p>
+        The Patterns object contains the namespace function which constructs
+        namespaces non-destructively, that is, if a name already exists it won't
+        overwrite it.
+      </p>
 
-      <p>ReplaceMe</p>
-      
       <p></p>
       <br />
       <div class="alert alert-dismissible alert-primary">
@@ -104,7 +185,82 @@
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
   
-                        //REPLACE THIS WITH CODE FROM JS FILE
+            //=============================================
+            // Chain NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").Chain = (function () {
+                // Request is created 
+                var Request = function (amount) {
+                    this.amount = amount;
+            
+                    log.add("Requested: $" + amount + "\n");
+                }
+                // The get method is added to the pototype
+                Request.prototype = {
+                    get: function (bill) {
+                        var count = Math.floor(this.amount / bill);
+                        this.amount -= count * bill;
+            
+                        log.add("Dispense " + count + " $" + bill + " bills");
+            
+                        return this;
+                    }
+                }
+            
+                return {
+                    Request: Request
+                }
+            })();
+            
+            
+            //=============================================
+            // run_OptimizedChain()
+            //=============================================
+            function run_OptimizedChain() {
+            
+                var chain = JsGangOfFour.Classic.Chain;
+                // the Request is created with the amount requested
+                var request = new chain.Request(378);
+                // Next, a series of get calls are chained together, each one 
+                // handling a particular denomination. The request object is 
+                // passed through the chain by returning this in the get method.
+                request.get(100).get(50).get(20).get(10).get(5).get(1);
+            
+                log.show();
+            }
       
                     </pre
           >
@@ -112,9 +268,9 @@
         <button
           type="button"
           class="btn btn-success"
-          onclick="run_OptimizedAbstractFactory();return false;"
+          onclick="run_OptimizedChain();return false;"
         >
-          Execute run_OptimizedAbstractFactory()
+          Execute Optimized Chain Of Responsibility
         </button>
       </div>
     </div>
