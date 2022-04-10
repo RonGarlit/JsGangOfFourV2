@@ -1,93 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/command.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">JavaScript Code</h4>
-                    <p>
-                        <img src="images/javascript-command.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="ReplaceMe">ReplaceMe</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Encapsulate a request as an object, thereby letting you
+            parameterizeclients with different requests, queue or log requests,
+            and supportundoable operations."
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
+      </div>
+      <p>
+        The Command pattern encapsulates actions as objects. Command objects
+        allow for loosely coupled systems by separating the objects that issue a
+        request from the objects that actually process the request. These
+        requests are called events and the code that processes the requests are
+        called event handlers.
+      </p>
+      <p>
+        Suppose you are building an application that supports the Cut, Copy, and
+        Paste clipboard actions. These actions can be triggered in different
+        ways throughout the app: by a menu system, a context menu (e.g. by right
+        clicking on a textbox), or by a keyboard shortcut.
+      </p>
+      <p>
+        Command objects allow you to centralize the processing of these actions,
+        one for each operation. So, you need only one Command for processing all
+        Cut requests, one for all Copy requests, and one for all Paste requests.
+      </p>
+      <p>
+        Because commands centralize all processing, they are also frequently
+        involved in handling Undo functionality for the entire application.
+      </p>
 
-</body>
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">JavaScript Code</h4>
+          <p>
+            <img
+              src="images/javascript-command.jpg"
+              alt="Abstract Factory Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
 
+      <p>
+        In our example we have a calculator with 4 basic operations:
+        <span class="cd">add</span>, <span class="cd">subtract</span>,
+        <span class="cd">multiply</span> and <span class="cd">divide</span>.
+        Each operation is encapsulated by a
+        <span class="cd">Command</span> object.
+      </p>
+      <p>
+        The <span class="cd">Calculator</span> maintains a stack of commands.
+        Each new command is executed and pushed onto the stack. When an
+        <span class="cd">undo</span> request arrives, it simply pops the last
+        command from the stack and executes the reverse action.
+      </p>
+      <p>
+        JavaScript's function objects (and callbacks) are native command
+        objects. They can be passed around like objects; in fact, they are true
+        objects. To learn more about JavaScript's eventing system and how
+        callbacks work please review the Modern Patterns section.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // command.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            function add(x, y) { return x + y; }
+            function sub(x, y) { return x - y; }
+            function mul(x, y) { return x * y; }
+            function div(x, y) { return x / y; }
+            
+            var Command = function (execute, undo, value) {
+                this.execute = execute;
+                this.undo = undo;
+                this.value = value;
+            }
+            
+            // Create the Add command object
+            var AddCommand = function (value) {
+                return new Command(add, sub, value);
+            };
+            
+            // Create the Subtraction command object
+            var SubCommand = function (value) {
+                return new Command(sub, add, value);
+            };
+            
+            // Create the Multiplication command object
+            var MulCommand = function (value) {
+                return new Command(mul, div, value);
+            };
+            
+            // Create the Divide command object
+            var DivCommand = function (value) {
+                return new Command(div, mul, value);
+            };
+            
+            // Calculator 
+            var Calculator = function () {
+                var current = 0;
+                var commands = [];
+            
+                function action(command) {
+                    var name = command.execute.toString().substr(9, 3);
+                    return name.charAt(0).toUpperCase() + name.slice(1);
+                }
+            
+                return {
+                    execute: function (command) {
+            
+                        current = command.execute(current, command.value);
+                        commands.push(command);
+            
+                        log.add(action(command) + ": " + command.value);
+                    },
+                    undo: function () {
+                        var command = commands.pop();
+                        current = command.undo(current, command.value);
+            
+                        log.add("Undo " + action(command) + ": " + command.value);
+                    },
+                    getCurrentValue: function () {
+                        return current;
+                    }
+                }
+            }
+            
+            //==============================================
+            // run_Calculator
+            //==============================================
+            function run_Calculator() {
+            
+                var calculator = new Calculator();
+            
+                // issue commands
+                calculator.execute(new AddCommand(100));
+                calculator.execute(new SubCommand(24));
+                calculator.execute(new MulCommand(6));
+                calculator.execute(new DivCommand(2));
+            
+                // reverse last two commands
+                calculator.undo();
+                calculator.undo();
+            
+                log.add("\nValue: " + calculator.getCurrentValue());
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_Calculator();return false;"
+        >
+          Execute Calculator
+        </button>
+      </div>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //=============================================
+            // Command NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").Command = (function () {
+            
+                function add(x, y) { return x + y; }
+                function sub(x, y) { return x - y; }
+                function mul(x, y) { return x * y; }
+                function div(x, y) { return x / y; }
+            
+                var Command = function (execute, undo, value) {
+                    this.execute = execute;
+                    this.undo = undo;
+                    this.value = value;
+                }
+            
+                return {
+            
+                    // Create the Add command object
+                    AddCommand: function (value) {
+                        return new Command(add, sub, value);
+                    },
+                    // Create the Subtraction command object
+                    SubCommand: function (value) {
+                        return new Command(sub, add, value);
+                    },
+                    // Create the Multiplication command object
+                    MulCommand: function (value) {
+                        return new Command(mul, div, value);
+                    },
+                    // Create the Divide command object
+                    DivCommand: function (value) {
+                        return new Command(div, mul, value);
+                    },
+            
+                    Calculator: function () {
+                        var current = 0;
+                        var commands = [];
+            
+                        function action(command) {
+                            var name = command.execute.toString().substr(9, 3);
+                            return name.charAt(0).toUpperCase() + name.slice(1);
+                        }
+            
+                        return {
+                            execute: function (command) {
+            
+                                current = command.execute(current, command.value);
+                                commands.push(command);
+            
+                                log.add(action(command) + ": " + command.value);
+                            },
+                            undo: function () {
+                                var command = commands.pop();
+                                current = command.undo(current, command.value);
+            
+                                log.add("Undo " + action(command) + ": " + command.value);
+                            },
+                            getCurrentValue: function () {
+                                return current;
+                            }
+                        }
+                    }
+                };
+            
+            })();
+            
+            //==============================================
+            // run_OptimizedCalculator 
+            //==============================================
+            function run_OptimizedCalculator() {
+            
+                var command = JsGangOfFour.Classic.Command;
+            
+                var calculator = new command.Calculator();
+            
+                // issue commands
+                calculator.execute(new command.AddCommand(100));
+                calculator.execute(new command.SubCommand(24));
+                calculator.execute(new command.MulCommand(6));
+                calculator.execute(new command.DivCommand(2));
+            
+                // reverse last two commands
+                calculator.undo();
+                calculator.undo();
+            
+                log.add("\nValue: " + calculator.getCurrentValue());
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedCalculator();return false;"
+        >
+          Execute Optimized Calculator
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
