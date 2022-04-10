@@ -1,93 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/Interpreter.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">JavaScript Code</h4>
-                    <p>
-                        <img src="images/javascript-interpreter.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="Interpreter">Interpreter</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Given a language, define a represention for its grammar along with
+            aninterpreter that uses the representation to interpret sentences in
+            the language. "
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
-   
-</body>
+      </div>
+      <p>
+        Some applications are so complex that they require advanced
+        configuration. You could offer a basic scripting language which allows
+        the end-user to manipulate your application through simple instructions.
+        The Interpreter pattern solves this particular problem – that of
+        creating a simple scripting language.
+      </p>
+      <p>
+        Certain types of problems lend themselves to be characterized by a
+        language. This language describes the problem domain which should be
+        well-understood and well-defined. To implement this you need to map the
+        language to a grammar. Grammars are usually hierarchical tree-like
+        structures that step through multiple levels and then end up with
+        terminal nodes (also called literals).
+      </p>
+      <p>
+        Problems like this, expressed as a grammar, can be implemented using the
+        Interpreter design pattern.
+      </p>
+      <p>
+        Today, if you really need this type of control in JavaScript it is
+        probably easier to use a code generator like
+        <a href="https://www.antlr.org/">ANTLR</a> which will allow you to build
+        your own command interpreters based on a grammar that you provide.
+      </p>
 
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">JavaScript Code</h4>
+          <p>
+            <img
+              src="images/javascript-interpreter.jpg"
+              alt="Abstract Factory Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+      <p>
+        The objective of this example is to build an interpreter which
+        translates roman numerals to decimal numbers: for example, XXXVI = 36.
+      </p>
+      <p>
+        The <span class="cd">Context</span> object maintains the input (the
+        roman numeral) and the resulting output as it is being parsed and
+        interpreted. The <span class="cd">Expression</span> object represents
+        the nodes in the grammar tree; it supports the
+        <span class="cd">interpret</span> method.
+      </p>
+      <p>
+        When running the program, a simple grammar tree is being built which
+        then processes a roman numeral and translates it into a numeric.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // Interpreter.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            
+            var Context = function (input) {
+                this.input = input;
+                this.output = 0;
+            }
+            
+            Context.prototype = {
+                startsWith: function (str) {
+                    return this.input.substr(0, str.length) === str;
+                }
+            }
+            
+            var Expression = function (name, one, four, five, nine, multiplier) {
+                this.name = name;
+                this.one = one;
+                this.four = four;
+                this.five = five;
+                this.nine = nine;
+                this.multiplier = multiplier;
+            }
+            
+            Expression.prototype = {
+                interpret: function (context) {
+                    if (context.input.length == 0) {
+                        return;
+                    }
+                    else if (context.startsWith(this.nine)) {
+                        context.output += (9 * this.multiplier);
+                        context.input = context.input.substr(2);
+                    }
+                    else if (context.startsWith(this.four)) {
+                        context.output += (4 * this.multiplier);
+                        context.input = context.input.substr(2);
+                    }
+                    else if (context.startsWith(this.five)) {
+                        context.output += (5 * this.multiplier);
+                        context.input = context.input.substr(1);
+                    }
+            
+                    while (context.startsWith(this.one)) {
+                        context.output += (1 * this.multiplier);
+                        context.input = context.input.substr(1);
+                    }
+                }
+            }
+            
+            //=============================================
+            // run_Interpreter
+            //=============================================
+            function run_Interpreter() {
+            
+                var roman = "MCMXXVIII"
+                var context = new Context(roman);
+                var tree = [];
+            
+                tree.push(new Expression("thousand", "M", " ", " ", " ", 1000));
+                tree.push(new Expression("hundred", "C", "CD", "D", "CM", 100));
+                tree.push(new Expression("ten", "X", "XL", "L", "XC", 10));
+                tree.push(new Expression("one", "I", "IV", "V", "IX", 1));
+            
+                for (var i = 0, len = tree.length; i < len; i++) {
+                    tree[i].interpret(context);
+                }
+            
+                alert(roman + " = " + context.output);
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_Interpreter();return false;"
+        >
+          Execute Interpreter
+        </button>
+      </div>
+      <p>
+        The Namespace pattern is applied to keep the code out of the global
+        namespace. Our namespace is named
+        <span class="cd">Patterns.Classic</span>. A Revealing Module named
+        <span class="cd">Interpreter</span> returns (i.e. reveals) only a single
+        item: the <span class="cd">evaluate</span> method. All other items are
+        kept private in the module: OO encapsulation at its best.
+      </p>
+      <p>
+        The <span class="cd">Patterns</span> object contains the
+        <span class="cd">namespace</span> function which constructs namespaces
+        non-destructively, that is, if a name already exists it won't overwrite
+        it.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //=============================================
+            // Interpreter NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").Interpreter = (function () {
+            
+                var Context = function (input) {
+                    this.input = input;
+                    this.output = 0;
+                }
+            
+                Context.prototype = {
+                    startsWith: function (str) {
+                        return this.input.substr(0, str.length) === str;
+                    }
+                }
+            
+                var Expression = function (name, one, four, five, nine, multiplier) {
+                    this.name = name;
+                    this.one = one;
+                    this.four = four;
+                    this.five = five;
+                    this.nine = nine;
+                    this.multiplier = multiplier;
+                }
+            
+                Expression.prototype = {
+                    interpret: function (context) {
+                        if (context.input.length == 0) {
+                            return;
+                        }
+                        else if (context.startsWith(this.nine)) {
+                            context.output += (9 * this.multiplier);
+                            context.input = context.input.substr(2);
+                        }
+                        else if (context.startsWith(this.four)) {
+                            context.output += (4 * this.multiplier);
+                            context.input = context.input.substr(2);
+                        }
+                        else if (context.startsWith(this.five)) {
+                            context.output += (5 * this.multiplier);
+                            context.input = context.input.substr(1);
+                        }
+            
+                        while (context.startsWith(this.one)) {
+                            context.output += (1 * this.multiplier);
+                            context.input = context.input.substr(1);
+                        }
+                    }
+                }
+            
+                function evaluate(roman) {
+            
+                    var tree = [];
+                    var context = new Context(roman);
+            
+                    tree.push(new Expression("thousand", "M", " ", " ", " ", 1000));
+                    tree.push(new Expression("hundred", "C", "CD", "D", "CM", 100));
+                    tree.push(new Expression("ten", "X", "XL", "L", "XC", 10));
+                    tree.push(new Expression("one", "I", "IV", "V", "IX", 1));
+            
+                    for (var i = 0, len = tree.length; i < len; i++) {
+                        tree[i].interpret(context);
+                    }
+            
+                    return context.output;
+                }
+            
+                return {
+                    evaluate: evaluate
+                };
+            
+            })();
+            
+            //==============================================
+            // run_OptimizedInterpreter
+            //==============================================
+            function run_OptimizedInterpreter() {
+            
+                var roman = "MCMXXVIII"
+                var result = JsGangOfFour.Classic.Interpreter.evaluate(roman);
+            
+                alert(roman + " = " + result);
+            }
+            
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedInterpreter();return false;"
+        >
+          Execute Optimized Interpreter
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
