@@ -1,93 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/iterator.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">JavaScript Code</h4>
-                    <p>
-                        <img src="images/javascript-iterator.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="Iterator">Iterator</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Provide a way to access the elements of an aggregate object
+            sequentially without exposing its underlying representation. "
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
-  
-</body>
+      </div>
 
+      <p>
+        The Iterator pattern allows clients to effectively loop over a
+        collection of objects
+      </p>
+      <p>
+        A common programming task is to traverse and manipulate a collection of
+        objects. These collections may be stored as an array or perhaps
+        something more complex, such as a tree or graph structure. In addition,
+        you may need to access the items in the collection in a certain order,
+        such as, front to back, back to front, depth first (as in tree
+        searches), skip evenly numbered objects, etc.
+      </p>
+      <p>
+        The Iterator design pattern solves this problem by separating the
+        collection of objects from the traversal of these objects by
+        implementing a specialized iterator.
+      </p>
+      <p>
+        Today, many languages have Iterators built-in by supporting
+        'for-each'-type constructs and IEnumerable and IEnumerator interfaces.
+        However, JavaScript only supports basic looping in the form of
+        <span class="cd">for</span>, <span class="cd">for-in</span>,
+        <span class="cd">while</span>, and
+        <span class="cd">do while</span> statements.
+      </p>
+      <p>
+        The Iterator pattern allows JavaScript developers to design looping
+        constructs that are far more flexible and sophisticated.
+      </p>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">JavaScript Code</h4>
+          <p>
+            <img
+              src="images/javascript-iterator.jpg"
+              alt="Abstract Factory Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+      <p class="text-warning">
+        Note: Much of the materials on this page are borrowed from a special
+        architecture course by Jack Poorte that I ported with some modification.
+      </p>
+
+      <p>
+        The <span class="cd">Iterator</span> object maintains a reference to the
+        collection and the current position. It also implements the 'standard'
+        Iterator interface with methods like: <span class="cd">first</span>,
+        <span class="cd">next</span>, <span class="cd">hasNext</span>,
+        <span class="cd">reset</span>, and <span class="cd">each</span>.
+      </p>
+
+      <p>
+        Two looping methods are used: a built-in
+        <span class="cd">for</span> loop and a newly created
+        <span class="cd">each</span> method. The
+        <span class="cd">for</span> loop uses the <span class="cd">first</span>,
+        <span class="cd">hasNext</span>, and
+        <span class="cd">next</span> methods to control the iteration. The
+        <span class="cd">each</span> method does internally exactly the same
+        (i.e. runs a for loop), but to the client the syntax has been greatly
+        simplified.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // Interpreter.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            // Create the iterator function
+            var Iterator = function (items) {
+                this.index = 0;
+                this.items = items;
+            }
+            
+            // Build out the prototype with base functions
+            Iterator.prototype = {
+                first: function () {
+                    this.reset();
+                    return this.next();
+                },
+                next: function () {
+                    return this.items[this.index++];
+                },
+                hasNext: function () {
+                    return this.index <= this.items.length;
+                },
+                reset: function () {
+                    this.index = 0;
+                },
+                each: function (callback) {
+                    for (var item = this.first(); this.hasNext(); item = this.next()) {
+                        callback(item);
+                    }
+                }
+            }
+            
+            //=============================================
+            // run_Iterator
+            //=============================================
+            function run_Iterator() {
+            
+                var items = ["one", 2, "circle", true, "Applepie"];
+                var iter = new Iterator(items);
+            
+                // using for loop
+            
+                for (var item = iter.first(); iter.hasNext(); item = iter.next()) {
+                    log.add(item);
+                }
+            
+                log.add("");
+            
+                // using Iterator's each method
+            
+                iter.each(function (item) {
+                    log.add(item);
+                });
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_Iterator();return false;"
+        >
+          Execute Iterator
+        </button>
+      </div>
+
+      <p>
+        The Namespace pattern is applied to keep the code out of the global
+        namespace. Our namespace is named
+        <span class="cd">Patterns.Classic</span>. A Revealing Module named
+        <span class="cd">Iterator</span> returns (i.e. reveals) only a single
+        item: the <span class="cd">Iterator</span> and by association its
+        prototype object.
+      </p>
+
+      <p>
+        The <span class="cd">Patterns</span> object contains the
+        <span class="cd">namespace</span> function which constructs namespaces
+        non-destructively, that is, if a name already exists it won't overwrite
+        it.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //=============================================
+            // Iterator NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //=============================================
+            // Classic NameSpace 
+            //=============================================
+            JsGangOfFour.namespace("Classic").Iterator = (function () {
+            
+                // Create the iterator function
+                var Iterator = function (items) {
+                    this.index = 0;
+                    this.items = items;
+                }
+            
+                // Build out the prototype with base functions
+                Iterator.prototype = {
+                    first: function () {
+                        this.reset();
+                        return this.next();
+                    },
+                    next: function () {
+                        return this.items[this.index++];
+                    },
+                    hasNext: function () {
+                        return this.index <= this.items.length;
+                    },
+                    reset: function () {
+                        this.index = 0;
+                    },
+                    each: function (callback) {
+                        for (var item = this.first(); this.hasNext(); item = this.next()) {
+                            callback(item);
+                        }
+                    }
+                }
+            
+                return {
+                    Iterator: Iterator
+                }
+            
+            })();
+            
+            //=============================================
+            // run_OptimizedIterator
+            //=============================================
+            function run_OptimizedIterator() {
+            
+                var items = ["one", 2, "circle", true, "Applepie"];
+                var iter = new JsGangOfFour.Classic.Iterator.Iterator(items);
+            
+                // using for loop
+            
+                for (var item = iter.first(); iter.hasNext(); item = iter.next()) {
+                    log.add(item);
+                }
+            
+                log.add("");
+            
+                // using Iterator's each method
+            
+                iter.each(function (item) {
+                    log.add(item);
+                });
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedIterator();return false;"
+        >
+          Execute Optimized Iterator
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
