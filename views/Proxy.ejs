@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>JsGangOFour</title>
-    <!-- Bootstrap CSS -->
 
-    <%- include('partials/MainStyles') %>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>JsGangOFour</title>
+  <!-- Bootstrap CSS -->
+
+  <%- include('partials/MainStyles') %>
     <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
     <%- include('partials/PrettyPrint') %>
 
-    <script src="scripts/proxy.js"></script>
-  </head>
+      <script src="scripts/proxy.js"></script>
+</head>
 
-  <body>
-    <!-- Start of Nav Section -->
-    <%- include('partials/MainNavBar') %>
+<body>
+  <!-- Start of Nav Section -->
+  <%- include('partials/MainNavBar') %>
     <!-- End of Nav Section -->
     <br />
     <div class="container">
@@ -61,11 +62,7 @@
         <div class="card-body">
           <h4 class="card-title">Proxy</h4>
           <p>
-            <img
-              src="images/javascript-proxy.jpg"
-              alt="Proxy Diagram"
-              class="img-fluid img-thumbnail"
-            />
+            <img src="images/javascript-proxy.jpg" alt="Proxy Diagram" class="img-fluid img-thumbnail" />
           </p>
         </div>
       </div>
@@ -93,23 +90,21 @@
       <p>
         Several city locations are queried and many of these are for the same
         city. GeoProxy builds up its cache while supporting these calls. At the
-        end GeoProxy< has processed 11 requests but had to go out to GeoCoder
-        only 3 times. Notice that the client program has no knowledge about the
-        proxy object (it calls the same interface with the standard getLatLng
-        method).
-      </p>
+        end GeoProxy< has processed 11 requests but had to go out to GeoCoder only 3 times. Notice that the client
+          program has no knowledge about the proxy object (it calls the same interface with the standard getLatLng
+          method). </p>
 
-      <p></p>
-      <br />
-      <div class="alert alert-dismissible alert-primary">
-        <h4 class="alert-heading">JavaScript Code</h4>
-        <div>
-          <!-- Follow these links for the google prettyify information
+          <p></p>
+          <br />
+          <div class="alert alert-dismissible alert-primary">
+            <h4 class="alert-heading">JavaScript Code</h4>
+            <div>
+              <!-- Follow these links for the google prettyify information
                     https://github.com/google/code-prettify
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-          <pre class="prettyprint">
-  
+              <pre class="prettyprint">
+
             //==============================================
             // proxy.js
             //==============================================
@@ -190,46 +185,41 @@
                 log.show();
             }
       
-            </pre
-          >
-        </div>
-        <button
-          type="button"
-          class="btn btn-success"
-          onclick="run_proxy();"
-        >
-          Execute Proxy Example
-        </button>
-      </div>
-      <p>
-        The Namespace pattern is applied to keep the code out of the global
-        namespace. Our namespace is Patterns.Classic. A Revealing Module named
-        Proxy returns (i.e. reveals) only a single item: the Geo constructor
-        function which in turn supports two public methods: getLatLng and
-        getCount.
-      </p>
+            </pre>
+            </div>
+            <button type="button" class="btn btn-success" onclick="run_proxy();">
+              Execute Proxy Example
+            </button>
+          </div>
+          <p>
+            The Namespace pattern is applied to keep the code out of the global
+            namespace. Our namespace is Patterns.Classic. A Revealing Module named
+            Proxy returns (i.e. reveals) only a single item: the Geo constructor
+            function which in turn supports two public methods: getLatLng and
+            getCount.
+          </p>
 
-      <p>
-        The public GeoCoder interface remains public because it simulates Google
-        Maps geocoding functionality.
-      </p>
+          <p>
+            The public GeoCoder interface remains public because it simulates Google
+            Maps geocoding functionality.
+          </p>
 
-      <p>
-        The Patterns object contains the namespace function which constructs
-        namespaces non-destructively, that is, if a name already exists it won't
-        overwrite it.
-      </p>
+          <p>
+            The Patterns object contains the namespace function which constructs
+            namespaces non-destructively, that is, if a name already exists it won't
+            overwrite it.
+          </p>
 
-      <p></p>
-      <br />
-      <div class="alert alert-dismissible alert-primary">
-        <h4 class="alert-heading">Optimized JavaScript Code</h4>
-        <div>
-          <!-- Follow these links for the google prettyify information
+          <p></p>
+          <br />
+          <div class="alert alert-dismissible alert-primary">
+            <h4 class="alert-heading">Optimized JavaScript Code</h4>
+            <div>
+              <!-- Follow these links for the google prettyify information
                     https://github.com/google/code-prettify
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-          <pre class="prettyprint">
+              <pre class="prettyprint">
             //=============================================
             // Proxy NameSpace 
             //=============================================
@@ -338,19 +328,15 @@
                 log.show();
             
             }
-                    </pre
-          >
-        </div>
-        <button
-          type="button"
-          class="btn btn-success"
-          onclick="run_OptimizedProxy();"
-        >
-          Execute Optimized Proxy Example
-        </button>
-      </div>
+                    </pre>
+            </div>
+            <button type="button" class="btn btn-success" onclick="run_OptimizedProxy();">
+              Execute Optimized Proxy Example
+            </button>
+          </div>
     </div>
 
     <%- include('partials/MainFooter') %>
-  </body>
+</body>
+
 </html>

@@ -14,7 +14,7 @@ var log = (function () {
     }
 })();
 
-
+// Acts as our AbstractClass
 var datastore = {
     process: function () {
         this.connect();
@@ -24,21 +24,20 @@ var datastore = {
     }
 };
 
+//  inherit function helps us establish the 
+//  inheritance relationship by assigning 
+//  a base object to the prototype of a 
+//  newly created descendant object.
 function inherit(proto) {
     var F = function () { };
     F.prototype = proto;
     return new F();
 }
 
-// log helper
-var log = (function () {
-    var log = "";
-    return {
-        add: function (msg) { log += msg + "\n"; },
-        show: function () { alert(log); log = ""; }
-    }
-})();
 
+//=============================================
+// run_TemplateMethod()
+//=============================================
 function run_TemplateMethod() {
 
     var mySql = inherit(datastore);
@@ -60,7 +59,25 @@ function run_TemplateMethod() {
     log.show();
 }
 
-
+//=============================================
+// Template Method NameSpace 
+//=============================================
+// JavaScript does not support class-based 
+// inheritance or abstract classes.
+// we must ensure this consistency ourselves
+// that properties and methods match!!!
+//==============================================
+// Create our namespace called "JsGangOfFour".
+//
+// This is based on the NameSpace Pattern and 
+// Module Pattern. This block of code should 
+// be at the top of separate files to better 
+// manage codebase.
+//
+// More importantly creating a structure to 
+// avoid name collisions globally under one varable
+// called JsGangOfFour.
+//==============================================
 var JsGangOfFour = {
     namespace: function (name) {
         var parts = name.split(".");
@@ -75,7 +92,11 @@ var JsGangOfFour = {
     }
 };
 
+//==============================================
+// Create the "Classic" namespace 
+//==============================================
 JsGangOfFour.namespace("Classic").Template = (function () {
+    // Acts as our AbstractClass
     var datastore = {
         process: function () {
             this.connect();
@@ -89,15 +110,23 @@ JsGangOfFour.namespace("Classic").Template = (function () {
 
 })();
 
+//==============================================
+// Create the "Utils" namespace 
+//==============================================
 JsGangOfFour.namespace("Utils").Common = (function () {
 
+    //  inherit function helps us establish the 
+    //  inheritance relationship by assigning 
+    //  a base object to the prototype of a 
+    //  newly created descendant object.
     var inherit = function (proto) {
         var F = function () { };
         F.prototype = proto;
         return new F();
     };
 
-    // log helper
+    // log helper - THis one is now hiden in our 
+    // Common Module inside the Utils NameSpace
     var log = (function () {
         var log = "";
         return {
@@ -113,6 +142,9 @@ JsGangOfFour.namespace("Utils").Common = (function () {
 
 })();
 
+//=============================================
+// run_OptimizedTemplateMethod()
+//=============================================
 function run_OptimizedTemplateMethod() {
 
     var utils = JsGangOfFour.Utils.Common;
