@@ -1,100 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JsGangOFour</title>
     <!-- Bootstrap CSS -->
 
     <%- include('partials/MainStyles') %>
-        <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
-        <%- include('partials/PrettyPrint') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+    <script src="scripts/state.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
-        <!-- End of Nav Section -->
-        <br>
-        <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                <div class="card-body">
-                    <h4 class="card-title">JavaScript Code</h4>
-                    <p>
-                        <img src="images/javascript-state.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
-                    </p>
-                </div>
-            </div>
-
-            <p>ReplaceMe</p>
-
-            <p>ReplaceMe </p>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
-            </div>
-
-
-            <p></p>
-            <br>
-            <div class="alert alert-dismissible alert-primary">
-                <h4 class="alert-heading">Optimized JavaScript Code</h4>
-                <div>
-                    <!-- Follow these links for the google prettyify information
-                    https://github.com/google/code-prettify
-                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
-                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
-                    <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
-      
-                    </pre>
-                </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
-            </div>
-
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="State">State</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Allow an object to alter its behavior when its internal state
+            changes.The object will appear to change its class. "
+          </p>
         </div>
-        <%- include('partials/MainFooter') %>
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-                crossorigin="anonymous"></script>
-</body>
+      </div>
+      <p>
+        Say a customer places an online order for a TV. While this order is
+        being processed it can in one of many states: New, Approved, Packed,
+        Pending, Hold, Shipping, Completed, or Canceled. If all goes well the
+        sequence will be New, Approved, Packed, Shipped, and Completed. However,
+        at any point something unpredictable may happen, such as no inventory,
+        breakage, or customer cancelation. If that happens the order needs to be
+        handled appropriately.
+      </p>
+      <p>
+        Applying the State pattern to this scenario will provide you with 8
+        State objects, each with its own set of properties (state) and methods
+        (i.e. the rules of acceptable state transitions). State machines are
+        often implemented using the State pattern. These state machines simply
+        have their State objects swapped out with another one when a state
+        transition takes place.
+      </p>
+      <p>
+        Two other examples where the State pattern is useful include: vending
+        machines that dispense products when a correct combination of coins is
+        entered, and elevator logic which moves riders up or down depending on
+        certain complex rules that attempt to minimize wait and ride times.
+      </p>
 
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">JavaScript Code</h4>
+          <p>
+            <img
+              src="images/javascript-state.jpg"
+              alt="State Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+      <div>
+        The objects participating in this pattern are: <br /><br />
+
+        <ul>
+          <li>
+            <b>Context</b> -- In sample code:
+            <b style="color: #088">TrafficLight</b>
+            <ul>
+              <li>exposes an interface that supports clients of the service</li>
+              <li>
+                maintains a reference to a state object that defines the current
+                state
+              </li>
+              <li>
+                allows State objects to change its current state to a different
+                state
+              </li>
+            </ul>
+          </li>
+          <li>
+            <b>State</b> -- In sample code:
+            <b style="color: #088">Red, Yellow, Green</b>
+            <ul>
+              <li>
+                encapsulates the state values and associated behavior of the
+                state
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Our example is a traffic light (i.e.
+        <span class="cd">TrafficLight</span> object) with 3 different states:
+        <span class="cd">Red</span>, <span class="cd">Yellow</span> and
+        <span class="cd">Green</span>, each with its own set of rules. The rules
+        go like this: Say the traffic light is Red. After a delay the Red state
+        changes to the Green state. Then, after another delay, the Green state
+        changes to the Yellow state. After a very brief delay the Yellow state
+        is changed to Red. And on and on.
+      </p>
+      <p>
+        It is important to note that it is the State object that determines the
+        transition to the next state. And it is also the State object that
+        changes the current state in the TrafficLight -- not the TrafficLight
+        itself.
+      </p>
+      <p>
+        For demonstration purposes, a built-in counter limits the number of
+        state changes, or else the program would run indefinitely.
+      </p>
+      <p>
+        The <span class="cd">log</span> function is a helper which collects and
+        displays results.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // state.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            var TrafficLight = function () {
+            
+                var count = 0;
+                var currentState = new Red(this);
+            
+                this.change = function (state) {
+                    // limits number of changes
+                    if (count++ >= 10) return;
+            
+                    currentState = state;
+                    currentState.go();
+                };
+            
+                this.start = function () {
+                    currentState.go();
+                };
+            }
+            
+            // State Object
+            var Red = function (light) {
+                this.light = light;
+            
+                this.go = function () {
+                    log.add("Red --> for 1 minute");
+                    light.change(new Green(light));
+                }
+            };
+            // State Object
+            var Yellow = function (light) {
+                this.light = light;
+            
+                this.go = function () {
+                    log.add("Yellow --> for 10 seconds");
+                    light.change(new Red(light));
+                }
+            };
+            // State Object
+            var Green = function (light) {
+                this.light = light;
+            
+                this.go = function () {
+                    log.add("Green --> for 1 minute");
+                    light.change(new Yellow(light));
+                }
+            };
+            
+            //==============================================
+            // run_State()
+            //==============================================
+            function run_State() {
+            
+                var light = new TrafficLight();
+                light.start();
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_State();return false;"
+        >
+          Execute State
+        </button>
+      </div>
+      <p>
+        The Namespace pattern is applied to keep the code out of the global
+        namespace. Our namespace is named
+        <span class="cd">JsGangOfFour.Classic</span>. A Revealing Module named
+        <span class="cd">State</span> returns (i.e. reveals) only a single item:
+        the <span class="cd">TrafficLight</span> constructor function.
+      </p>
+      <p>
+        All three state items <span class="cd">Red</span>,
+        <span class="cd">Yellow</span>, and <span class="cd">Green</span> are
+        kept private in TrafficLight's closure. They have full access to the
+        enclosing function which includes <span class="cd">change</span> through
+        which they change the state. So the state objects do not need an
+        explicit reference to TrafficLight anymore, they have implicit access.
+        The module only exposes TrafficLight, which, in turn, only exposes the
+        <span class="cd">start</span> method. This is a nice example of OO
+        encapsulation and data hiding using JavaScript JsGangOfFour.
+      </p>
+      <p>
+        The <span class="cd">JsGangOfFour</span> object contains the
+        <span class="cd">namespace</span> function which constructs namespaces
+        non-destructively, that is, if a name already exists it won't overwrite
+        it.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+
+            //=============================================
+            // State NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").State = (function () {
+                var TrafficLight = function () {
+                    // State Object
+                    var Red = function () {
+                        this.go = function () {
+                            log.add("Red --> for 1 minute");
+                            change(new Green());
+                        }
+                    };
+                    // State Object
+                    var Yellow = function () {
+                        this.go = function () {
+                            log.add("Yellow --> for 10 seconds");
+                            change(new Red());
+                        }
+                    };
+                    // State Object
+                    var Green = function () {
+                        this.go = function () {
+                            log.add("Green --> for 1 minute");
+                            change(new Yellow());
+                        }
+                    };
+            
+                    var count = 0;
+                    var currentState = new Red(this);
+            
+                    var change = function (state) {
+                        // limits number of changes
+                        if (count++ >= 10) return;
+            
+                        currentState = state;
+                        currentState.go();
+                    };
+            
+                    this.start = function () {
+                        currentState.go();
+                    };
+                }
+            
+                return {
+                    TrafficLight: TrafficLight
+                };
+            
+            })();
+            
+            //==============================================
+            // run_OptimizedState()
+            //==============================================
+            function run_OptimizedState() {
+            
+                var light = new JsGangOfFour.Classic.State.TrafficLight();
+                light.start();
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedState();return false;"
+        >
+          Execute Optimized State
+        </button>
+      </div>
+    </div>
+
+    <%- include('partials/MainFooter') %>
+  </body>
 </html>
