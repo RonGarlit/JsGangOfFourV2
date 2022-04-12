@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>JsGangOFour</title>
-    <!-- Bootstrap CSS -->
 
-    <%- include('partials/MainStyles') %>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>JsGangOFour</title>
+  <!-- Bootstrap CSS -->
+
+  <%- include('partials/MainStyles') %>
     <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
     <%- include('partials/PrettyPrint') %>
 
-    <script src="scripts/state.js"></script>
-  </head>
+      <script src="scripts/state.js"></script>
+</head>
 
-  <body>
-    <!-- Start of Nav Section -->
-    <%- include('partials/MainNavBar') %>
+<body>
+  <!-- Start of Nav Section -->
+  <%- include('partials/MainNavBar') %>
     <!-- End of Nav Section -->
     <br />
     <div class="container">
@@ -57,11 +58,7 @@
         <div class="card-body">
           <h4 class="card-title">JavaScript Code</h4>
           <p>
-            <img
-              src="images/javascript-state.jpg"
-              alt="State Diagram"
-              class="img-fluid img-thumbnail"
-            />
+            <img src="images/javascript-state.jpg" alt="State Diagram" class="img-fluid img-thumbnail" />
           </p>
         </div>
       </div>
@@ -135,7 +132,7 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
-  
+
             //==============================================
             // state.js
             //==============================================
@@ -209,14 +206,9 @@
                 log.show();
             }
       
-                    </pre
-          >
+                    </pre>
         </div>
-        <button
-          type="button"
-          class="btn btn-success"
-          onclick="run_State();"
-        >
+        <button type="button" class="btn btn-success" onclick="run_State();">
           Execute State
         </button>
       </div>
@@ -255,7 +247,7 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
-  
+
 
             //=============================================
             // State NameSpace 
@@ -350,19 +342,15 @@
                 log.show();
             }
       
-                    </pre
-          >
+                    </pre>
         </div>
-        <button
-          type="button"
-          class="btn btn-success"
-          onclick="run_OptimizedState();"
-        >
+        <button type="button" class="btn btn-success" onclick="run_OptimizedState();">
           Execute Optimized State
         </button>
       </div>
     </div>
 
     <%- include('partials/MainFooter') %>
-  </body>
+</body>
+
 </html>

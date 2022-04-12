@@ -11,7 +11,7 @@
         <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
         <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
+            <script src="scripts/visitor.js"></script>
 
 </head>
 
@@ -21,31 +21,97 @@
         <!-- End of Nav Section -->
         <br>
         <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
+            <h2 title="Visitor">Visitor</h2>
             <div class="card text-white bg-secondary">
                 <div class="card-body">
                     <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
+                    <p class="card-text">"Represent an operation to be performed on the elements of an object structure.
+                        Visitor lets you define a new operation without changing the classes of the elements
+                        on which it operates. "
                     </p>
                 </div>
             </div>
 
-            <p>ReplaceMe </p>
-
-            <p>ReplaceMe </p>
+            <p>
+                The Visitor pattern defines a new operation to a collection of objects without changing the objects
+                themselves.
+                The new logic resides in a separate object called the Visitor.
+            </p>
+            <p>
+                Visitors are useful when building extensibility in a library or framework.
+                If the objects in your project provide a 'visit' method that accepts a Visitor object which can make
+                changes to the receiving object
+                then you are providing an easy way for clients to implement future extensions.
+            </p>
+            <p>
+                In most programming languages the Visitor pattern requires that the original developer anticipates
+                functional adjustments in the future.
+                This is done by including methods that accept a Visitor and let it operate on the original collection of
+                objects.
+            </p>
+            <p>
+                Visitor is not important to JavaScript because it offers far more flexibility by the ability to add and
+                remove methods at runtime.
+            </p>
 
             <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
                 <div class="card-body">
                     <h4 class="card-title">JavaScript Code</h4>
                     <p>
-                        <img src="images/javascript-visitor.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
+                        <img src="images/javascript-visitor.jpg" alt="Visitor Diagram" class="img-fluid img-thumbnail">
                     </p>
                 </div>
             </div>
+            <p class="text-warning">
+                Note: Much of the materials on this page are borrowed from a special
+                architecture course by Jack Poorte that I ported with some modification.
+            </p>
+            <div>
+                The objects participating in this pattern are: <br /><br />
 
-            <p>ReplaceMe</p>
+                <ul>
+                    <li><b>ObjectStructure</b> -- In sample code: <b style="color:#088;">employees array</b>
+                        <ul>
+                            <li>maintains a collection of Elements which can be iterated over</li>
+                        </ul>
+                    </li>
+                    <li><b>Elements</b> -- In sample code: <b style="color:#088;">Employee objects</b>
+                        <ul>
+                            <li>defines an accept method that accepts visitor objects</li>
+                            <li>in the accept method the visitor's visit method is invoked with 'this' as a parameter
+                            </li>
+                        </ul>
+                    </li>
+                    <li><b>Visitor</b> -- In sample code: <b style="color:#088;">ExtraSalary, ExtraVacation</b>
+                        <ul>
+                            <li>implements a visit method. The argument is the Element being visited. This is where the
+                                Element's changes are made</li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <p>ReplaceMe </p>
+
+            </div>
+            <p>In this example three employees are created with the <span class="cd">Employee</span> constructor
+                function.
+                Each is getting a 10% salary raise and 2 more vacation days.
+                Two visitor objects, <span class="cd">ExtraSalary</span> and <span class="cd">ExtraVacation</span>, make
+                the necessary changes to the employee objects.
+            </p>
+            <p>
+                Note that the visitors, in their <span class="cd">visit</span> methods, access the closure variables
+                <span class="cd">salary</span> and <span class="cd">vacation</span> through a public interface.
+                It is the only way because closures are not accessible from the outside.
+                In fact, <span class="cd">salary</span> and <span class="cd">vacation</span> are not variables, they are
+                function arguments, but it works because they are also part of the closure.
+            </p>
+            <p>
+                Notice the <span class="cd">self</span> variable. It is used to maintain the current context (stored as
+                a closure variable) and is used in the <span class="cd">visit</span> method.
+            </p>
+            <p>
+                The <span class="cd">log</span> function is a helper which collects and displays results.
+            </p>
 
 
             <p></p>
@@ -58,15 +124,122 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
                     <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
+
+                        //==============================================
+                        // visitor.js
+                        //==============================================
+                        // log helper
+                        // Used to add() to var log
+                        // then display in alert box
+                        // via show() method
+                        //==============================================
+                        var log = (function () {
+                            var log = "";
+                            return {
+                                add: function (msg) { log += msg + "\n"; },
+                                show: function () { alert(log); log = ""; }
+                            }
+                        })();
+                        
+                        // Employee Object
+                        var Employee = function (name, salary, vacation) {
+                        
+                            var self = this;
+                        
+                            // Accept method to allow visitor new 
+                            // functionality on the this object
+                            this.accept = function (visitor) {
+                                visitor.visit(self);
+                            };
+                            this.getName = function () {
+                                return name;
+                            };
+                            this.getSalary = function () {
+                                return salary;
+                            };
+                            this.setSalary = function (sal) {
+                                salary = sal;
+                            };
+                            this.getVacation = function () {
+                                return vacation;
+                            };
+                            this.setVacation = function (vac) {
+                                vacation = vac;
+                            };
+                        };
+                        
+                        // Visitor method
+                        var ExtraSalary = function () {
+                            this.visit = function (emp) {
+                                emp.setSalary(emp.getSalary() * 1.1);
+                            };
+                        };
+                        
+                        // Visitor method
+                        var ExtraVacation = function () {
+                            this.visit = function (emp) {
+                                emp.setVacation(emp.getVacation() + 2);
+                            };
+                        };
+                        
+                        //==============================================
+                        // run_Visitor()
+                        //==============================================
+                        function run_Visitor() {
+                            
+                            // Employee Object Array
+                            var employees = [
+                                new Employee("John", 10000, 10),
+                                new Employee("Mary", 20000, 21),
+                                new Employee("Boss", 250000, 51)
+                            ];
+                        
+                            var visitorSalary = new ExtraSalary();
+                            var visitorVacation = new ExtraVacation();
+                        
+                            for (var i = 0, len = employees.length; i < len; i++) {
+                        
+                                var emp = employees[i];
+                        
+                                emp.accept(visitorSalary);
+                                emp.accept(visitorVacation);
+                        
+                                log.add(emp.getName() + ": $" + emp.getSalary() +
+                                    " and " + emp.getVacation() + " vacation days");
+                            }
+                        
+                            log.show();
+                        }
       
                     </pre>
                 </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();">Execute run_AbstractFactory()</button>
+                <button type="button" class="btn btn-success" onclick="run_Visitor();">Execute
+                    Visitor</button>
             </div>
 
-
+            <p>
+                The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named
+                <span class="cd">JsGangOfFour.Classic</span>.
+                A Revealing Module named <span class="cd">Visitor</span> returns (i.e. reveals) only a single item: the
+                <span class="cd">Employee</span> constructor function.
+            </p>
+            <p>
+                In the <span class="cd">run</span> method an array with 3 employees is created. Next, two 'visitor'
+                functions are defined: <span class="cd">extraSalary</span> and <span class="cd">extraVacation</span>
+                which are going to be applied to each employee. We could have added these to the Visitor module, but
+                this better demonstrates that you can arbitrarily create and apply functions
+                to any object. The only requirement is that the properties and methods referenced in the function do
+                exist on the object.
+            </p>
+            <p>
+                This shows that the Visitor pattern is essentially native to JavaScript as expressed by the Apply
+                Invocation pattern.
+            </p>
+            <p>
+                The <span class="cd">JsGangOfFour</span> object contains the <span class="cd">namespace</span> function
+                which constructs namespaces non-destructively,
+                that is, if a name already exists it won't overwrite it.
+            </p>
             <p></p>
             <br>
             <div class="alert alert-dismissible alert-primary">
@@ -77,24 +250,115 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
                     <pre class="prettyprint">
-  
-                        //REPLACE THIS WITH CODE FROM JS FILE
+
+                        //=============================================
+                        // Visitor NameSpace 
+                        //=============================================
+                        // JavaScript does not support class-based 
+                        // inheritance or abstract classes.
+                        // we must ensure this consistency ourselves
+                        // that properties and methods match!!!
+                        //==============================================
+                        // Create our namespace called "JsGangOfFour".
+                        //
+                        // This is based on the NameSpace Pattern and 
+                        // Module Pattern. This block of code should 
+                        // be at the top of separate files to better 
+                        // manage codebase.
+                        //
+                        // More importantly creating a structure to 
+                        // avoid name collisions globally under one varable
+                        // called JsGangOfFour.
+                        //==============================================
+                        var JsGangOfFour = {
+                            namespace: function (name) {
+                                var parts = name.split(".");
+                                var ns = this;
+                        
+                                for (var i = 0, len = parts.length; i < len; i++) {
+                                    ns[parts[i]] = ns[parts[i]] || {};
+                                    ns = ns[parts[i]];
+                                }
+                        
+                                return ns;
+                            }
+                        };
+                        
+                        //==============================================
+                        // Create the "Classic" namespace 
+                        //==============================================
+                        JsGangOfFour.namespace("Classic").Visitor = (function () {
+                        
+                            // Employee Object
+                            var Employee = function (name, salary, vacation) {
+                               
+                                this.getName = function () { return name; };
+                                this.setName = function (value) { name = value; };
+                                
+                                this.getSalary = function () { return salary; };
+                                this.setSalary = function (value) { salary = value; };
+                                
+                                this.getVacation = function () { return vacation; };
+                                this.setVacation = function (value) { vacation = value; }
+                            };
+                        
+                            return { Employee: Employee };
+                        
+                        })();
+                        
+                        //==============================================
+                        // run_OptimizedVisitor()
+                        //==============================================
+                        function run_OptimizedVisitor() {
+                        
+                            var visitor = JsGangOfFour.Classic.Visitor;
+                        
+                            // Employee Object Array
+                            var employees = [
+                                new visitor.Employee("John", 10000, 10),
+                                new visitor.Employee("Mary", 20000, 21),
+                                new visitor.Employee("Boss", 250000, 51)
+                            ];
+                        
+                            // Visitor method
+                            var extraSalary = function () {
+                                this.setSalary(this.getSalary() * 1.1)
+                            };
+                        
+                            // Visitor method
+                            var extraVacation = function () {
+                                this.setVacation(this.getVacation() + 2)
+                            };
+                        
+                            for (var i = 0, len = employees.length; i < len; i++) {
+                        
+                                var emp = employees[i];
+                        
+                                // APPLY 'visitor' functions
+                                // We could have added these to the Visitor module, 
+                                // but this better demonstrates that you can 
+                                // arbitrarily create and apply functions to any object.
+                                // See: https://www.w3schools.com/JS/js_function_apply.asp
+                                extraSalary.apply(emp);
+                                extraVacation.apply(emp);
+                        
+                                log.add(emp.getName() + ": $" + emp.getSalary() +
+                                    " and " + emp.getVacation() + " vacation days");
+                            }
+                        
+                            log.show();
+                        }
+                        
       
                     </pre>
                 </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();">Execute run_OptimizedAbstractFactory()</button>
+                <button type="button" class="btn btn-success" onclick="run_OptimizedVisitor();">Execute
+                    Optimized Visitor</button>
             </div>
 
         </div>
+
         <%- include('partials/MainFooter') %>
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-                crossorigin="anonymous"></script>
 </body>
 
 </html>

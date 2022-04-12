@@ -56,7 +56,7 @@
                 <div class="card-body">
                     <h4 class="card-title">JavaScript Code</h4>
                     <p>
-                        <img src="images/javascript-template-method.jpg" alt="Abstract Factory Diagram"
+                        <img src="images/javascript-template-method.jpg" alt="Template Method Diagram"
                             class="img-fluid img-thumbnail" />
                     </p>
                 </div>
@@ -183,19 +183,19 @@
             </p>
             <p>
                 The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named
-                <span class="cd">Patterns.Classic</span>.
+                <span class="cd">JsGangOfFour.Classic</span>.
                 A Revealing Module named <span class="cd">Template</span> returns (i.e. reveals) a single item: the
                 <span class="cd">datastore</span> object.
                 <br /><br />
-                A second namespace is created named <span class="cd">Patterns.Utils</span> which holds utility-type
+                A second namespace is created named <span class="cd">JsGangOfFour.Utils</span> which holds utility-type
                 functions.
                 A <i>Revealing Module</i> named <span class="cd">Common</span> returns (i.e. reveals) two items: <span
                     class="cd">inherit</span> and our trusted <span class="cd">log</span> utility.
                 With this we have limited our footprint on the global namespace to a single item, i.e. the <span
-                    class="cd">Patterns</span> root of our namespace.
+                    class="cd">JsGangOfFour</span> root of our namespace.
             </p>
             <p>
-                The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function
+                The <span class="cd">JsGangOfFour</span> object contains the <span class="cd">namespace</span> function
                 which constructs namespaces non-destructively,
                 that is, if a name already exists it won't overwrite it.
             </p>
