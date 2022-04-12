@@ -31,9 +31,26 @@
         </div>
       </div>
 
-      <p>ReplaceMe</p>
-
-      <p>ReplaceMe</p>
+      <p>
+        The Strategy pattern encapsulates alternative algorithms (or strategies)
+        for a particular task. It allows a method to be swapped out at runtime
+        by any other method (strategy) without the client realizing it.
+        Essentially, Strategy is a group of algorithms that are interchangeable.
+      </p>
+      <p>
+        Say we like to test the performance of different sorting algorithms to
+        an array of numbers: shell sort, heap sort, bubble sort, quicksort, etc.
+        Applying the Strategy pattern to these algorithms allows the test
+        program to loop through all algorithms, simply by changing them at
+        runtime and test each of these against the array. For Strategy to work
+        all method signatures must be the same so that they can vary without the
+        client program knowing about it.
+      </p>
+      <p>
+        In JavaScript the Strategy pattern is widely used as a plug-in mechanism
+        when building extensible frameworks. This can be an extremely effective
+        approach.
+      </p>
 
       <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
         <div class="card-body">
@@ -47,10 +64,51 @@
           </p>
         </div>
       </div>
+      <p class="text-warning">
+        Note: Much of the materials on this page are borrowed from a special
+        architecture course by Jack Poorte that I ported with some modification.
+      </p>
+      <div>
+        The objects participating in this pattern are: <br /><br />
 
-      <p>ReplaceMe</p>
-
-      <p>ReplaceMe</p>
+        <ul>
+          <li>
+            <b>Context</b> -- In sample code:
+            <b style="color: #088">Shipping</b>
+            <ul>
+              <li>maintains a reference to the current Strategy object</li>
+              <li>
+                supports interface to allow clients to request Strategy
+                calculations
+              </li>
+              <li>allows clients to change Strategy</li>
+            </ul>
+          </li>
+          <li>
+            <b>Strategy</b> -- In sample code:
+            <b style="color: #088">UPS, USPS, Fedex</b>
+            <ul>
+              <li>implements the algorithm using the Strategy interface</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <p>
+        In this example we have a product order that needs to be shipped from a
+        warehouse to a customer. Different shipping companies are evaluated to
+        determine the best price. This can be useful with shopping carts where
+        customers select their shipping preferences and the selected Strategy
+        returns the estimated cost.
+      </p>
+      <p>
+        <span class="cd">Shipping</span> is the Context and the 3 shipping
+        companies <span class="cd">UPS</span>, <span class="cd">USPS</span>, and
+        <span class="cd">Fedex</span>
+        are the Strategies. The shipping companies (strategies) are changed 3
+        times and each time we calculate the cost of shipping. In a real-world
+        scenario the calculate methods may call into the shipper's Web service.
+        At the end we display the different costs.
+      </p>
 
       <p></p>
       <br />
@@ -63,7 +121,92 @@
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
   
-                        //REPLACE THIS WITH CODE FROM JS FILE
+            //==============================================
+            // strategy.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            // Create the Shipping object
+            var Shipping = function () {
+                this.company = "";
+            };
+            // Add functionality to the shipping object
+            Shipping.prototype = {
+            
+                setStrategy: function (company) {
+                    this.company = company;
+                },
+                calculate: function (package) {
+                    return this.company.calculate(package);
+                }
+            };
+            
+            // Strategy Object
+            var UPS = function () {
+                this.calculate = function (package) {
+            
+                    // calculations...
+            
+                    return "$45.95";
+                }
+            };
+            
+            // Strategy Object
+            var USPS = function () {
+                this.calculate = function (package) {
+            
+                    // calculations...
+            
+                    return "$39.40";
+                }
+            };
+            
+            // Strategy Object
+            var Fedex = function () {
+                this.calculate = function (package) {
+            
+                    // calculations...
+            
+                    return "$43.20";
+                }
+            };
+            
+            //=============================================
+            // run_Strategy()
+            //=============================================
+            function run_Strategy() {
+            
+                var package = { from: "76712", to: "10012", weigth: "lkg" };
+            
+                // the 3 strategies
+            
+                var ups = new UPS();
+                var usps = new USPS();
+                var fedex = new Fedex();
+            
+                var shipping = new Shipping();
+                shipping.setStrategy(ups);
+                log.add("UPS Strategy: " + shipping.calculate(package));
+            
+                shipping.setStrategy(usps);
+                log.add("USPS Strategy: " + shipping.calculate(package));
+            
+                shipping.setStrategy(fedex);
+                log.add("Fedex Strategy: " + shipping.calculate(package));
+            
+                log.show();
+            }
       
                     </pre
           >
@@ -71,12 +214,41 @@
         <button
           type="button"
           class="btn btn-success"
-          onclick="run_AbstractFactory();return false;"
+          onclick="run_Strategy();return false;"
         >
-          Execute run_AbstractFactory()
+          Execute Strategy
         </button>
       </div>
 
+      <p>
+        The Namespace pattern is applied to keep the code out of the global
+        namespace. Our namespace is named
+        <span class="cd">Patterns.Classic</span>. A Revealing Module named
+        <span class="cd">Strategy</span> returns (i.e. reveals) only a single
+        item: the <span class="cd">Shipping</span> constructor function, which,
+        in turn, only exposes two methods:
+        <span class="cd">setStrategy</span> and
+        <span class="cd">calculate</span>.
+      </p>
+      <p>
+        Here the <span class="cd">setStrategy</span> takes in a string and
+        assigns the appropriate strategy within the Strategy module. All three
+        shipping strategies, i.e. <span class="cd">UPS</span>,
+        <span class="cd">USPS</span>, and <span class="cd">Fedex</span>, are
+        kept private inside the module's closure. Again, this is a nice example
+        of OO encapsulation and data hiding using JavaScript patterns.
+      </p>
+      <p>
+        The <span class="cd">Patterns</span> object contains the
+        <span class="cd">namespace</span> function which constructs namespaces
+        non-destructively, that is, if a name already exists it won't overwrite
+        it.
+      </p>
+      <p>
+        The <span class="cd">log</span> function is a helper which collects and
+        displays results.
+      </p>
+
       <p></p>
       <br />
       <div class="alert alert-dismissible alert-primary">
@@ -88,7 +260,118 @@
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
   
-                        //REPLACE THIS WITH CODE FROM JS FILE
+            //=============================================
+            // Strategy NameSpace 
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").Strategy = (function () {
+                // Create the Shipping object 
+                var Shipping = function () {
+                    var company = "";
+            
+                    this.setStrategy = function (name) {
+                        if (name === "UPS") {
+                            company = new UPS();
+                        } else if (name === "USPS") {
+                            company = new USPS();
+                        } else if (name === "Fedex") {
+                            company = new Fedex();
+                        }
+                    };
+            
+                    this.calculate = function (package) {
+                        return company.calculate(package);
+                    }
+                };
+            
+                // Strategy Object
+                var UPS = function () {
+                    this.calculate = function (package) {
+            
+                        // calculations...
+            
+                        return "$45.95";
+                    }
+                };
+            
+                // Strategy Object
+                var USPS = function () {
+                    this.calculate = function (package) {
+            
+                        // calculations...
+            
+                        return "$39.40";
+                    }
+                };
+            
+                // Strategy Object
+                var Fedex = function () {
+                    this.calculate = function (package) {
+            
+                        // calculations...
+            
+                        return "$43.20";
+                    }
+                };
+            
+                return { Shipping: Shipping };
+            
+            })();
+            
+            //=============================================
+            // run_OptimizedStrategy()
+            //=============================================
+            function run_OptimizedStrategy() {
+            
+                var shipping = new JsGangOfFour.Classic.Strategy.Shipping();
+            
+                var package = { from: "76712", to: "10012", weigth: "lkg" };
+            
+                // the 3 strategies
+                shipping.setStrategy("UPS");
+                log.add("UPS Strategy: " + shipping.calculate(package));
+            
+                shipping.setStrategy("USPS");
+                log.add("USPS Strategy: " + shipping.calculate(package));
+            
+                shipping.setStrategy("Fedex");
+                log.add("Fedex Strategy: " + shipping.calculate(package));
+            
+                log.show();
+            }
+            
       
                     </pre
           >
@@ -96,29 +379,13 @@
         <button
           type="button"
           class="btn btn-success"
-          onclick="run_OptimizedAbstractFactory();return false;"
+          onclick="run_OptimizedStrategy();return false;"
         >
-          Execute run_OptimizedAbstractFactory()
+          Execute Optimized Strategy
         </button>
       </div>
     </div>
+
     <%- include('partials/MainFooter') %>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src=""
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
