@@ -11,45 +11,96 @@
         <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
         <%- include('partials/PrettyPrint') %>
 
-            <script src="scripts/abstractfactory.js"></script>
-
+            <script src="scripts/template.js"></script>
 </head>
 
 <body>
     <!-- Start of Nav Section -->
     <%- include('partials/MainNavBar') %>
         <!-- End of Nav Section -->
-        <br>
+        <br />
         <div class="container">
-            <h2 title="ReplaceMe">ReplaceMe</h2>
+            <h2 title="Template Method">Template Method</h2>
             <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <div class="card-title">Intent according to the GoF: </div>
-                    <p class="card-text">"Ensure a class only has one instance, and provide a global point of access to it."
+                    <div class="card-title">Intent according to the GoF:</div>
+                    <p class="card-text">
+                        Define the skeleton of an algorithm in an operation, deferring some
+                        steps to subclasses. Template Method lets subclasses redefine
+                        certain steps of an algorithm without changing the algorithm's
+                        structure. "
                     </p>
                 </div>
             </div>
+            <p>
+                The Template Method pattern provides an outline of a series of steps for an algorithm. Objects that
+                implement these steps retain the original
+                structure of the algorithm but have the option to redefine or adjust certain steps.
+                This pattern is designed to offer extensibility to the client developer.
+            </p>
+            <p>
+                Template Methods are frequently used in general purpose frameworks or libraries that will be used by
+                other developer
+                An example is an object that fires a sequence of events in response to an action, for example a process
+                request. The object generates a 'preprocess' event, a 'process' event and a 'postprocess' event.
+                The developer has the option to adjust the response to immediately before the processing, during the
+                processing and immediately after the processing.
+            </p>
+            <p>
+                An easy way to think of Template Method is that of an algorithm with holes (see diagram below). It is up
+                to the developer to fill these holes with appropriate functionality for each step.
+            </p>
 
-            <p>ReplaceMe </p>
 
-            <p>ReplaceMe </p>
-
-            <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
+            <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
                 <div class="card-body">
                     <h4 class="card-title">JavaScript Code</h4>
                     <p>
-                        <img src="images/javascript-template-method.jpg" alt="Abstract Factory Diagram" class="img-fluid img-thumbnail">
+                        <img src="images/javascript-template-method.jpg" alt="Abstract Factory Diagram"
+                            class="img-fluid img-thumbnail" />
                     </p>
                 </div>
             </div>
 
-            <p>ReplaceMe</p>
+            The objects participating in this pattern are: <br />
+            <br />
+            <ul>
 
-            <p>ReplaceMe </p>
+                <li><b>AbstractClass</b> -- In sample code: <b style="color:#088;">datastore</b>
+                    <ul>
+                        <li>offers an interface for clients to invoke the templateMethod</li>
+                        <li>implements template method which defines the primitive Steps for an algorithm</li>
+                        <li>provides the hooks (through method overriding) for a client developer to implement the Steps
+                        </li>
+                    </ul>
+                </li>
+                <li><b>ConcreteClass</b> -- In sample code: <b style="color:#088;">mySql</b>
+                    <ul>
+                        <li>implements the primitive Steps as defined in AbstractClass</li>
+                    </ul>
+                </li>
+            </ul>
 
 
-            <p></p>
-            <br>
+
+            <p>This is an example where we use JavaScript's <i>prototypal inheritance</i>.
+                The <span class="cd">inherit</span> function helps us establish the inheritance relationship by
+                assigning a base object to the prototype of a newly created <i>descendant</i> object.
+            </p>
+            <p>The <span class="cd">datastore</span> function represents the AbstractClass and <span
+                    class="cd">mySql</span> represents the ConcreteClass.
+                <span class="cd">mySql</span> overrides the 3 template methods: <span class="cd">connect</span>, <span
+                    class="cd">select</span>, and <span class="cd">disconnect</span>
+                with datastore-specific implementations.
+            </p>
+            <p>
+                The template methods allow the client to change datastore (SQL Server, Oracle, etc.) by adjusting
+                (filling in the blanks) only the template methods.
+                The rest, such as, the order of the steps, stays the same for any datastore.
+            </p>
+
+            </p>
+            <br />
             <div class="alert alert-dismissible alert-primary">
                 <h4 class="alert-heading">JavaScript Code</h4>
                 <div>
@@ -58,17 +109,40 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
                     <pre class="prettyprint">
-  
+
                         //REPLACE THIS WITH CODE FROM JS FILE
       
                     </pre>
                 </div>
-                <button type="button" class="btn btn-success" onclick="run_AbstractFactory();return false;">Execute run_AbstractFactory()</button>
+                <button type="button" class="btn btn-success" onclick="run_TemplateMethod();">
+                    Execute Template Method
+                </button>
             </div>
-
+            <p class="text-warning">
+                Note: Much of the materials on this page are borrowed from a special
+                architecture course by Jack Poorte that I ported with some modification.
+            </p>
+            <p>
+                The Namespace pattern is applied to keep the code out of the global namespace. Our namespace is named
+                <span class="cd">Patterns.Classic</span>.
+                A Revealing Module named <span class="cd">Template</span> returns (i.e. reveals) a single item: the
+                <span class="cd">datastore</span> object.
+                <br /><br />
+                A second namespace is created named <span class="cd">Patterns.Utils</span> which holds utility-type
+                functions.
+                A <i>Revealing Module</i> named <span class="cd">Common</span> returns (i.e. reveals) two items: <span
+                    class="cd">inherit</span> and our trusted <span class="cd">log</span> utility.
+                With this we have limited our footprint on the global namespace to a single item, i.e. the <span
+                    class="cd">Patterns</span> root of our namespace.
+            </p>
+            <p>
+                The <span class="cd">Patterns</span> object contains the <span class="cd">namespace</span> function
+                which constructs namespaces non-destructively,
+                that is, if a name already exists it won't overwrite it.
+            </p>
 
             <p></p>
-            <br>
+            <br />
             <div class="alert alert-dismissible alert-primary">
                 <h4 class="alert-heading">Optimized JavaScript Code</h4>
                 <div>
@@ -77,24 +151,18 @@
                     This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
                     https://github.com/google/code-prettify/blob/master/styles/desert.css -->
                     <pre class="prettyprint">
-  
+
                         //REPLACE THIS WITH CODE FROM JS FILE
       
                     </pre>
                 </div>
-                <button type="button" class="btn btn-success" onclick="run_OptimizedAbstractFactory();return false;">Execute run_OptimizedAbstractFactory()</button>
+                <button type="button" class="btn btn-success" onclick="run_OptimizedTemplateMethod();">
+                    Execute Optimized Template Method
+                </button>
             </div>
-
         </div>
+
         <%- include('partials/MainFooter') %>
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-                crossorigin="anonymous"></script>
 </body>
 
 </html>
