@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>JsGangOFour</title>
+    <!-- Bootstrap CSS -->
+
+    <%- include('partials/MainStyles') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
+
+    <script src="scripts/namespace.js"></script>
+  </head>
+
+  <body>
+    <!-- Start of Nav Section -->
+    <%- include('partials/MainNavBar') %>
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="Namespace">Namespace</h2>
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="card-title">Intent according to the GoF:</div>
+          <p class="card-text">
+            "Define a one-to-many dependency between objects so that when one
+            object changes state, all its dependents are notified and updated
+            automatically. "
+          </p>
+        </div>
+      </div>
+
+      <p>
+        The Observer pattern offers a subscription model in which objects
+        subscribe to an event and get notified when the event occurs. This
+        pattern is the cornerstone of event driven programming, including
+        JavaScript. The Observer pattern facilitates good object-oriented design
+        and promotes loose coupling.
+      </p>
+      <p>
+        When building web apps you end up writing many event handlers. Event
+        handlers are functions that will be notified when a certain event fires.
+        These notifications optionally receive an event argument with details
+        about the event (for example the x and y position of the mouse at a
+        click event).
+      </p>
+      <p>
+        The event and event-handler paradigm in JavaScript is the manifestation
+        of the Observer design pattern. Another name for the Observer pattern is
+        Pub/Sub, short for Publication/Subscription.
+      </p>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">JavaScript Code</h4>
+          <p>
+            <img
+              src="images/javascript-observer.jpg"
+              alt="Observer Diagram"
+              class="img-fluid img-thumbnail"
+            />
+          </p>
+        </div>
+      </div>
+      <p class="text-warning">
+        Note: Much of the materials on this page are borrowed from a special
+        architecture course by Jack Poorte that I ported with some modification.
+      </p>
+
+      <p>
+        The <span class="cd">Click</span> object represents the Subject. The
+        <span class="cd">clickHandler</span> function is the subscribing
+        Observer. This handler subscribes, unsubscribes, and then subscribes
+        itself while events are firing. It gets notified only of events #1 and
+        #3.
+      </p>
+      <p>
+        Notice that the <span class="cd">fire</span> method accepts two
+        arguments. The first one has details about the event and the second one
+        is the context, that is, the <span class="cd">this</span> value for when
+        the eventhandlers are called. If no context is provided
+        <span class="cd">this</span> will be bound to the global object
+        (window).
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //==============================================
+            // Observer.js
+            //==============================================
+            // log helper
+            // Used to add() to var log
+            // then display in alert box
+            // via show() method
+            //==============================================
+            var log = (function () {
+                var log = "";
+                return {
+                    add: function (msg) { log += msg + "\n"; },
+                    show: function () { alert(log); log = ""; }
+                }
+            })();
+            
+            // Create the Click observer
+            function Click() {
+                this.handlers = [];  // observers
+            }
+            
+            // Add the functionality needed
+            Click.prototype = {
+                subscribe: function (fn) {
+                    this.handlers.push(fn);
+                },
+            
+                unsubscribe: function (fn) {
+                    this.handlers = this.handlers.filter(
+                        function (item) {
+                            if (item !== fn) {
+                                return item;
+                            }
+                        }
+                    );
+                },
+            
+                fire: function (o, thisObj) {
+                    var scope = thisObj || window;
+                    this.handlers.forEach(function (item) {
+                        item.call(scope, o);
+                    });
+                }
+            }
+            
+            //=============================================
+            // run_Observer()
+            //=============================================
+            function run_Observer() {
+            
+                var clickHandler = function (item) {
+                    log.add("fired: " + item);
+                };
+            
+                var click = new Click();
+            
+                click.subscribe(clickHandler);
+                click.fire('event #1');
+            
+                click.unsubscribe(clickHandler);
+                click.fire('event #2');
+            
+                click.subscribe(clickHandler);
+                click.fire('event #3');
+            
+                log.show();
+            }
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_Observer();"
+        >
+          Execute Observer
+        </button>
+      </div>
+
+      <p>
+        The JavaScript environment is event-driven and the Observer pattern is
+        built-in. There is no need to reinvent the wheel so we will use what is
+        available. Unfortunately, the native event handling is different across
+        browsers. But lucky for us, jQuery does a fantastic job of shielding
+        developers from browser differences and it offers sophisticated event
+        management and event handling, including custom events.
+      </p>
+      <p>
+        Here we have a <span class="cd">div</span> element on the page to which
+        we attach three different event handlers using jQuery's
+        <span class="cd">on</span> method. You will see that all three handlers
+        execute when the 'poke' event gets triggered ('poke' is a custom event).
+        At the end of the code we detach all event handlers with a single call
+        to jQuery's <span class="cd">off</span> method.
+      </p>
+
+      <p></p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">Optimized JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+                    https://github.com/google/code-prettify
+                    This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+                    https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+  
+            //=============================================
+            // run_OptimizedObserver()
+            //=============================================
+            function run_OptimizedObserver() {
+            
+                var div = jQuery("#div");
+            
+                // attach three event handlers
+                div.on("poke", function () { log.add("poke handler 1"); });
+                div.on("poke", function () { log.add("poke handler 2"); });
+                div.on("poke", function () { log.add("poke handler 3"); });
+            
+                // trigger event
+                div.trigger('poke');
+
+                log.show();
+            
+                // detach event handlers
+                div.off("poke");
+            
+            }           
+      
+                    </pre
+          >
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          onclick="run_OptimizedObserver();"
+        >
+          Execute Optimized Observer
+        </button>
+      </div>
+    </div>
+    <%- include('partials/MainFooter') %>
+  </body>
+</html>
