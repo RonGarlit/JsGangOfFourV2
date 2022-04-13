@@ -6,8 +6,9 @@ const router = express.Router();
 //-------------------------
 // Modern Patterns
 //======================================================
-router.get('/Chain', function (req, res) {
-    res.render('Chain');
-  });
+router.get('/Namespace', function (req, res) {
+  res.render('Namespace');
+});
 
-  module.exports = router;
+
+module.exports = router;

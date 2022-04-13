@@ -25,6 +25,7 @@ const creationalRouter = require('./routes/creational');
 const structuralRouter = require('./routes/structural');
 const behavioralRouter = require('./routes/behavioral');
 const bootstrapRouter = require('./routes/bootstrap');
+const modernRouter = require('./routes/modern');
 
 // Setup EJS templeting view engine and view file location
 app.set('views', './views');
@@ -36,6 +37,7 @@ app.use('/', creationalRouter);
 app.use('/', structuralRouter);
 app.use('/', behavioralRouter);
 app.use('/', bootstrapRouter);
+app.use('/', modernRouter);
 
 //======================================================
 // Open the Server
