@@ -10,5 +10,8 @@ router.get('/Namespace', function (req, res) {
   res.render('Namespace');
 });
 
+router.get('/Module', function (req, res) {
+  res.render('Module');
+});
 
 module.exports = router;

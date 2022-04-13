@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>JsGangOFour</title>
+  <!-- Bootstrap CSS -->
+
+  <%- include('partials/MainStyles') %>
+    <!-- PrettyPrints CSS and JS to handle code blocks in HTML code -->
+    <%- include('partials/PrettyPrint') %>
+
+      <script src="scripts/module.js"></script>
+</head>
+
+<body>
+  <!-- Start of Nav Section -->
+  <%- include('partials/MainNavBar') %>
+    <!-- End of Nav Section -->
+    <br />
+    <div class="container">
+      <h2 title="Module">Module</h2>
+
+      <p>
+        As you know, using global variables and functions is not a good way to organize your code.
+
+        When you declare variables and functions in your JavaScript file they end up in the global object space (the
+        global object called 'window' in the browser).
+      </p>
+      <p>
+        These variables and functions become properties and methods on the global object. Built-in functions, such as,
+        alert, confirm, and eval are all functions on the global object.
+
+        What happens is that all variables and functions are added to the global object (or global namespace) creating
+        the risk of name collision.
+      </p>
+      <p>
+        Name collision occurs when variables or functions are added to the global object with the same name, essentially
+        overwriting each other.
+
+        The trouble with collision bugs is that they are extremely hard to find, especially because you don't know what
+        goes on in the third party library (especially if they are minified).
+      </p>
+      <p>
+        Here we use an earlier example from Template Method where we are using our JsGangOfFour namespace.
+
+        There we added the Template module to our "Classic" namespace.  Followed by the Common module to our "Utils" namespace.
+      </p>
+      <p>
+       Then you can see how we use them in the run_SampleNamespace() method.
+      </p>
+      </p>
+      <br />
+      <div class="alert alert-dismissible alert-primary">
+        <h4 class="alert-heading">JavaScript Code</h4>
+        <div>
+          <!-- Follow these links for the google prettyify information
+            https://github.com/google/code-prettify
+            This is the link to the styple for prettyify - We choose Dessert and put in prettify.css
+            https://github.com/google/code-prettify/blob/master/styles/desert.css -->
+          <pre class="prettyprint">
+
+
+
+
+            </pre>
+        </div>
+        <button type="button" class="btn btn-success" onclick="run_SampleNamespace();">
+          Execute Namespace Example
+        </button>
+      </div>
+
+      <div class="card text-white bg-primary mb-3" style="max-width: 25rem">
+        <div class="card-body">
+          <h4 class="card-title">Debug look at global variable scope</h4>
+          <p>
+            <img src="images/JsGangOfFourNamespace.jpg" alt="Debug Showing Namespace" class="img-fluid img-thumbnail" />
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <%- include('partials/MainFooter') %>
+</body>
+
+</html>
