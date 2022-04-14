@@ -11,7 +11,7 @@ router.get('/cerulean', function (req, res) {
     res.render('cerulean');
 });
 
-router.get('view/cosmo', function (req, res) {
+router.get('/cosmo', function (req, res) {
     res.render('cosmo');
 });
 
