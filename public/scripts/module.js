@@ -1,6 +1,6 @@
 
 //=============================================
-// NameSpace Pattern
+// Revealing Module Pattern
 //=============================================
 // JavaScript does not support class-based 
 // inheritance or abstract classes.
@@ -53,19 +53,25 @@ JsGangOfFour.namespace("Classic").Template = (function () {
 //==============================================
 // Create the "Utils" namespace 
 //==============================================
+// Note that the Common module here is using 
+// the revealing Module Pattern
+//
+// This Module pattern makes use of 
+// immediate anonymous functions and closures.
+//==============================================
 JsGangOfFour.namespace("Utils").Common = (function () {
 
-    //  inherit function helps us establish the 
-    //  inheritance relationship by assigning 
-    //  a base object to the prototype of a 
-    //  newly created descendant object.
+    //==============================================
+    // Private Area
+    //==============================================
+
     var inherit = function (proto) {
         var F = function () { };
         F.prototype = proto;
         return new F();
     };
 
-    // log helper - This one is now hiden in our 
+    // log helper - This one is now hidden in our 
     // Common Module inside the Utils NameSpace
     var log = (function () {
         var log = "";
@@ -76,24 +82,33 @@ JsGangOfFour.namespace("Utils").Common = (function () {
     })();
 
     return {
-        inherit: inherit,
-        log: log
+
+        //==============================================
+        // Public Area
+        //==============================================
+        // Note I used the same name here for the public 
+        // method but it is not required.
+        //==============================================
+        inherit: inherit,   // revealing method
+        log: log            // revealing method
     };
 
 })();
 
 //=============================================
-// run_SampleNamespace()
+// run_RevealingModule()
 //=============================================
-function run_SampleNamespace() {
+function run_RevealingModule() {
 
+    // Assign a few variable here with items 
+    // from our modules these will run faster too 
     var utils = JsGangOfFour.Utils.Common;
 
     var store = JsGangOfFour.Classic.Template.datastore;
+    // Setup MySql with the public inherit from Common module 
     var mySql = utils.inherit(store);
 
     // implement template steps
-
     mySql.connect = function () {
         utils.log.add("MySQL: connect step");
     };

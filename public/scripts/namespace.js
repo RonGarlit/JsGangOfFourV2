@@ -65,7 +65,7 @@ JsGangOfFour.namespace("Utils").Common = (function () {
         return new F();
     };
 
-    // log helper - This one is now hiden in our 
+    // log helper - This one is now hidden in our 
     // Common Module inside the Utils NameSpace
     var log = (function () {
         var log = "";

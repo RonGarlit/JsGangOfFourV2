@@ -20,36 +20,45 @@
     <!-- End of Nav Section -->
     <br />
     <div class="container">
-      <h2 title="Module">Module</h2>
+      <h2 title="Revealing Module">Revealing Module</h2>
+      <p>
+        JavaScript does not support access modifiers. By default all properties and methods are public, meaning they are
+        accessible by anyone in the program.
+      </p>
 
       <p>
-        As you know, using global variables and functions is not a good way to organize your code.
+        This is not always desirable, but fortunately, a number of techniques and
+        patterns have been developed over the last few years that allow you to protect and encapsulate the data in your
+        objects.
 
-        When you declare variables and functions in your JavaScript file they end up in the global object space (the
-        global object called 'window' in the browser).
+      </p>
+
+      <p>
+        All these are based on the concept of function closure which will be discussed shortly.
+      </p>
+
+      <p>
+        The main take-away for now is that data encapsulation is one of the core principles in OO and is also very
+        important to JavaScript.
       </p>
       <p>
-        These variables and functions become properties and methods on the global object. Built-in functions, such as,
-        alert, confirm, and eval are all functions on the global object.
+        The Module pattern is a creational and structural design pattern which provides a way of encapsulating private
+        members while producing a public API. This is accomplished by creating an IIFE which allows us to define
+        variables only available in its scope (through closure) while returning an object which contains the public API.
+      </p>
 
-        What happens is that all variables and functions are added to the global object (or global namespace) creating
-        the risk of name collision.
-      </p>
-      <p>
-        Name collision occurs when variables or functions are added to the global object with the same name, essentially
-        overwriting each other.
 
-        The trouble with collision bugs is that they are extremely hard to find, especially because you don't know what
-        goes on in the third party library (especially if they are minified).
-      </p>
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <h4 class="card-title">"This" and "Closure" in use</h4>
+          <p>
+            <img src="images/Closure01.jpg" alt="This and Closure" class="img-fluidimg img-thumbnail" />
+          </p>
+        </div>
+      </div>
       <p>
-        Here we use an earlier example from Template Method where we are using our JsGangOfFour namespace.
-
-        There we added the Template module to our "Classic" namespace.  Followed by the Common module to our "Utils" namespace.
-      </p>
-      <p>
-       Then you can see how we use them in the run_SampleNamespace() method.
-      </p>
+        This gives us a clean solution for hiding the main logic and only exposing an interface we wish other parts of
+        our application to use.
       </p>
       <br />
       <div class="alert alert-dismissible alert-primary">
@@ -61,13 +70,135 @@
             https://github.com/google/code-prettify/blob/master/styles/desert.css -->
           <pre class="prettyprint">
 
-
-
+            //=============================================
+            // Revealing Module Pattern
+            //=============================================
+            // JavaScript does not support class-based 
+            // inheritance or abstract classes.
+            // we must ensure this consistency ourselves
+            // that properties and methods match!!!
+            //==============================================
+            // Create our namespace called "JsGangOfFour".
+            //
+            // This is based on the NameSpace Pattern and 
+            // Module Pattern. This block of code should 
+            // be at the top of separate files to better 
+            // manage codebase.
+            //
+            // More importantly creating a structure to 
+            // avoid name collisions globally under one varable
+            // called JsGangOfFour.
+            //==============================================
+            var JsGangOfFour = {
+                namespace: function (name) {
+                    var parts = name.split(".");
+                    var ns = this;
+            
+                    for (var i = 0, len = parts.length; i < len; i++) {
+                        ns[parts[i]] = ns[parts[i]] || {};
+                        ns = ns[parts[i]];
+                    }
+            
+                    return ns;
+                }
+            };
+            
+            //==============================================
+            // Create the "Classic" namespace 
+            //==============================================
+            JsGangOfFour.namespace("Classic").Template = (function () {
+                // Acts as our AbstractClass
+                var datastore = {
+                    process: function () {
+                        this.connect();
+                        this.select();
+                        this.disconnect();
+                        return true;
+                    }
+                };
+            
+                return { datastore: datastore };
+            
+            })();
+            
+            //==============================================
+            // Create the "Utils" namespace 
+            //==============================================
+            // Note that the Common module here is using 
+            // the revealing Module Pattern
+            //
+            // This Module pattern makes use of 
+            // immediate anonymous functions and closures.
+            //==============================================
+            JsGangOfFour.namespace("Utils").Common = (function () {
+            
+                //==============================================
+                // Private Area
+                //==============================================
+            
+                var inherit = function (proto) {
+                    var F = function () { };
+                    F.prototype = proto;
+                    return new F();
+                };
+            
+                // log helper - This one is now hidden in our 
+                // Common Module inside the Utils NameSpace
+                var log = (function () {
+                    var log = "";
+                    return {
+                        add: function (msg) { log += msg + "\n"; },
+                        show: function () { alert(log); log = ""; }
+                    }
+                })();
+            
+                return {
+            
+                    //==============================================
+                    // Public Area
+                    //==============================================
+                    // Note I used the same name here for the public 
+                    // method but it is not required.
+                    //==============================================
+                    inherit: inherit,   // revealing method
+                    log: log            // revealing method
+                };
+            
+            })();
+            
+            //=============================================
+            // run_RevealingModule()
+            //=============================================
+            function run_RevealingModule() {
+            
+                // Assign a few variable here with items 
+                // from our modules these will run faster too 
+                var utils = JsGangOfFour.Utils.Common;
+            
+                var store = JsGangOfFour.Classic.Template.datastore;
+                // Setup MySql with the public inherit from Common module 
+                var mySql = utils.inherit(store);
+            
+                // implement template steps
+                mySql.connect = function () {
+                    utils.log.add("MySQL: connect step");
+                };
+                mySql.select = function () {
+                    utils.log.add("MySQL: select step");
+                };
+                mySql.disconnect = function () {
+                    utils.log.add("MySQL: disconnect step");
+                };
+            
+                mySql.process();
+            
+                utils.log.show();
+            }
 
             </pre>
         </div>
-        <button type="button" class="btn btn-success" onclick="run_SampleNamespace();">
-          Execute Namespace Example
+        <button type="button" class="btn btn-success" onclick="run_RevealingModule();">
+          Execute Revealing Module
         </button>
       </div>
 
@@ -75,7 +206,7 @@
         <div class="card-body">
           <h4 class="card-title">Debug look at global variable scope</h4>
           <p>
-            <img src="images/JsGangOfFourNamespace.jpg" alt="Debug Showing Namespace" class="img-fluid img-thumbnail" />
+            <img src="images/RevealingMod01.jpg" alt="Revealing Module in Namespace" class="img-fluid img-thumbnail" />
           </p>
         </div>
       </div>
